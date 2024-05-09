@@ -1,10 +1,71 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
   text-align: center;
 }
+.btn-upd {
+  padding: 15px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
+.stack-container {
+  position: relative;
+}
+.card-upload {
+  position: absolute;
+  top: 90px;
+  left: 145px;
+}
+.card {
+  border: 1px solid #fff;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 20px;
+}
+
+/* top right bottom left */
+
+.card-content {
+  border: 1px dashed #dddada;
+  margin: 10px 15px 15px 15px;
+
+  background: #fcfbfbb0;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.card-content:hover {
+  transition: background-color 0.1s ease;
+  background-color: #dbdeff;
+  border: 1px dashed #007bff;
+}
+.Edit_column {
+  display: grid;
+  grid-template-columns: 5.6% 27% 67.4%;
+  grid-template-rows: 100vh;
+}
+.column1 {
+  background-color: #f7f7f8;
+  border: 0.5px solid #d7d6d6;
+}
+
+.column2 {
+  background-color: #f7f7f8;
+  border: 0.5px solid #d7d6d6;
+}
+
+.column3 {
+  background-color: #f7f7f8;
+  border: 0.5px solid #d7d6d6;
+}
+.upd_card_close {
+  position: absolute;
+  top: 120px;
+  right: 225px;
+  cursor: pointer;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
