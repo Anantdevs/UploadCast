@@ -12,7 +12,6 @@ const Card: React.FC<CardProps> = ({ title, content }) => {
   return (
     <div className="card">
       <h2 className="card-title">{title}</h2>
-
       <div
         className="card-content"
         style={{ width: "40rem ", height: "8rem", paddingTop: "55px" }}

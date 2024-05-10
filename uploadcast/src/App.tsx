@@ -5,6 +5,7 @@ import Card from "./components/card";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 function App() {
   const [blurAmount, setBlurAmount] = useState<number>(5);
@@ -25,19 +26,19 @@ function App() {
       <div>
         {isVis ? (
           <div className="card-upload">
-            <Card
-              title="Audio Editor"
-              content="click to browse, or drag & drop a file here"
-              imageUrl="https://example.com/image.jpg"
-            />
+            <div>
+              <Card
+                title="Audio Editor"
+                content="click to browse, or drag & drop a file here"
+                imageUrl="https://example.com/image.jpg"
+              />
+              <FontAwesomeIcon
+                icon={faXmark}
+                className="upd_card_close"
+                onClick={changeBlur}
+              />
+            </div>
           </div>
-        ) : null}
-        {isVis ? (
-          <FontAwesomeIcon
-            icon={faXmark}
-            className="upd_card_close"
-            onClick={changeBlur}
-          />
         ) : null}
       </div>
     </div>

@@ -28,9 +28,9 @@ function TimeLine() {
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel
-        defaultSize={13}
+        defaultSize={9}
         maxSize={55}
-        minSize={13}
+        minSize={19}
         className="customResize"
         style={{ borderTop: "1px solid #007bff" }}
       >

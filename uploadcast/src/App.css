@@ -20,33 +20,33 @@
 }
 .card-upload {
   position: absolute;
-  top: 90px;
-  left: 145px;
+  top: 25vh;
+  left: 45vh;
 }
 .card {
-  border: 1px solid #fff;
+  border: 1px solid #e6e5e5;
   overflow: hidden;
   background: #fff;
   border-radius: 20px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
-/* top right bottom left */
-
 .card-content {
-  border: 1px dashed #dddada;
+  border: 1.5px dashed #dddada;
   margin: 10px 15px 15px 15px;
   position: relative;
-
   background: #fcfbfbb0;
   overflow: hidden;
   border-radius: 10px;
   z-index: 100;
 }
+
 .card-content:hover {
   transition: background-color 0.1s ease;
   background-color: #dbdeff;
-  border: 1px dashed #007bff;
+  border: 1.5px dashed #007bff;
 }
+
 .Edit_column {
   display: grid;
   grid-template-columns: 5.6% 27% 67.4%;
@@ -104,8 +104,8 @@
 
 .upd_card_close {
   position: absolute;
-  top: 120px;
-  right: 225px;
+  top: 5vh;
+  right: 5vh;
   cursor: pointer;
 }
 .logo {
