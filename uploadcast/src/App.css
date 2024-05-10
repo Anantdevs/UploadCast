@@ -102,6 +102,11 @@
   opacity: 1;
 }
 
+.proj_monitor {
+  /* position: relative; */
+  background-color: black;
+}
+
 .upd_card_close {
   position: absolute;
   top: 5vh;

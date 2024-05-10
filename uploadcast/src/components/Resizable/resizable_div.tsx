@@ -1,10 +1,10 @@
 import React from "react";
+
 import {
   ResizableHandle,
   ResizablePanelGroup,
 } from "../../../@/components/ui/resizable";
-// import BottomTimeline from "./Timeline";
-import BottomTimeline from "./timeline";
+import BottomTimeline from "./time_line";
 import MonitorScreen from "./editing_monitor";
 
 function TimeLine() {
@@ -12,10 +12,10 @@ function TimeLine() {
     <ResizablePanelGroup
       direction="vertical"
       className="min-h-[200px] max-w-md rounded-lg border customResize"
-      style={{ position: "absolute" }}
+      style={{ position: "absolute", width: "94.4%" }}
     >
       <MonitorScreen />
-      <ResizableHandle />
+      <ResizableHandle style={{ width: "100%" }} />
       <BottomTimeline />
     </ResizablePanelGroup>
   );

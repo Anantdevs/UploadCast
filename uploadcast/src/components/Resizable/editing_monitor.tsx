@@ -1,22 +1,35 @@
-import React from "react";
 import { ResizablePanel } from "../../../@/components/ui/resizable";
+import React, { useState } from "react";
 
 function MonitorScreen() {
+  const [width, setWidth] = useState("80%");
+
+  const handleResize = (newSize) => {
+    setWidth(`${newSize}%`);
+  };
+
   return (
     <ResizablePanel
       defaultSize={40}
       className="customResize"
       style={{
-        // border: "1px solid #007bff",
-        width: "67.4%",
-        left: "50vh",
+        border: "1px solid #007bff",
+        width: "71.3%",
+        left: "49.9vh",
         position: "relative",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
+      onResize={handleResize}
     >
-      <div className="flex h-full items-center justify-center p-6">
-        <span className="font-semibold">Header</span>
-      </div>
+      <div
+        id="myDiv"
+        className="proj_monitor"
+        style={{ width: width, height: "85%" }}
+      ></div>
     </ResizablePanel>
   );
 }
+
 export default MonitorScreen;

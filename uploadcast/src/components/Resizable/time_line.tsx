@@ -8,11 +8,12 @@ function BottomTimeline() {
       maxSize={55}
       minSize={19}
       className="customResize"
-      style={{ borderTop: "1px solid #007bff" }}
+      style={{
+        borderTop: "1px solid #007bff",
+        width: "100%",
+      }}
     >
-      <div className="flex h-full items-center justify-center p-6">
-        <span className="font-semibold">TimeLine</span>
-      </div>
+      <div className="flex h-full items-center justify-center p-6"></div>
     </ResizablePanel>
   );
 }
