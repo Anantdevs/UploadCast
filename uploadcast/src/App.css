@@ -46,9 +46,18 @@
   grid-template-columns: 5.6% 27% 67.4%;
   grid-template-rows: 100vh;
 }
+.icons-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  height: 80vh;
+}
 .column1 {
   background-color: #f7f7f8;
   border: 0.5px solid #d7d6d6;
+  height: 100vh;
 }
 
 .column2 {
@@ -60,6 +69,32 @@
   background-color: #f7f7f8;
   border: 0.5px solid #d7d6d6;
 }
+.iconStyle {
+  font-size: 27px;
+  position: relative;
+  display: flexbox; /* Use 'flex' instead of 'flexbox' */
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.background-circ {
+  position: absolute;
+  border-radius: 50%; /* Ensure it's a perfect circle */
+  left: 19px;
+  top: -5px;
+  width: 50px; /* Adjust width and height to cover the entire icon */
+  height: 50px;
+  opacity: 0;
+  z-index: -1;
+}
+
+.iconStyle:hover .background-circ {
+  background-color: #e8e7e7;
+  transition: opacity 0.1s ease-in;
+  opacity: 1;
+}
+
 .upd_card_close {
   position: absolute;
   top: 120px;

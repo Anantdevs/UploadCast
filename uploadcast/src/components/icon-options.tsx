@@ -8,9 +8,10 @@ interface IconProps {
 
 const Icon: React.FC<IconProps> = (props) => {
   return (
-    <span style={{ display: "block" }}>
+    <div className="iconStyle">
       <FontAwesomeIcon icon={props.icon} />
-    </span>
+      <div className="background-circ"></div>
+    </div>
   );
 };
 export default Icon;
