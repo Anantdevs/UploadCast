@@ -1,19 +1,22 @@
 import React from "react";
 import { ResizablePanel } from "../../../@/components/ui/resizable";
 
-function BottomTimeline() {
+function MonitorScreen() {
   return (
     <ResizablePanel
-      defaultSize={9}
-      maxSize={55}
-      minSize={19}
+      defaultSize={40}
       className="customResize"
-      style={{ borderTop: "1px solid #007bff" }}
+      style={{
+        // border: "1px solid #007bff",
+        width: "67.4%",
+        left: "50vh",
+        position: "relative",
+      }}
     >
       <div className="flex h-full items-center justify-center p-6">
-        <span className="font-semibold">TimeLine</span>
+        <span className="font-semibold">Header</span>
       </div>
     </ResizablePanel>
   );
 }
-export default BottomTimeline;
+export default MonitorScreen;
