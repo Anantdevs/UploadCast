@@ -2,7 +2,7 @@ import { ResizablePanel } from "../../../@/components/ui/resizable";
 import React, { useState } from "react";
 
 function MonitorScreen() {
-  const [width, setWidth] = useState("80%");
+  const [width, setWidth] = useState("71.3%");
 
   const handleResize = (newSize) => {
     setWidth(`${newSize}%`);
@@ -27,7 +27,9 @@ function MonitorScreen() {
         id="myDiv"
         className="proj_monitor"
         style={{ width: width, height: "85%" }}
-      ></div>
+      >
+        Header
+      </div>
     </ResizablePanel>
   );
 }

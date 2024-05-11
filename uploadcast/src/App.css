@@ -72,10 +72,16 @@
 }
 
 .column3 {
-  background-color: #f7f7f8;
+  background-color: #f7f8f8;
   border: 0.5px solid #d7d6d6;
   position: relative;
 }
+/* .div-media-tl {
+  border: "1px solid #ded70b";
+  height: 40%;
+  width: 100%;
+  display: flexbox;
+} */
 .iconStyle {
   font-size: 27px;
   position: relative;
