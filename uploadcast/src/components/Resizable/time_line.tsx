@@ -22,15 +22,29 @@ function BottomTimeline() {
           border: "0.5px solid #2711d1",
           height: "85%",
           width: "100%",
-          position: "absolute",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          // justifyContent: "stretch",
+          // display: "flex",
+          // flexDirection: "column",
+          // alignItems: "center",
+          display: "grid",
+          gridTemplateRows: "18% 45% 45%",
         }}
       >
-        Timing
         <div
-          style={{ border: "1px solid #ded70b", height: "30%", width: "100%" }}
+          style={
+            {
+              // height: "20%"
+            }
+          }
+        >
+          Timing
+        </div>
+        <div
+          style={{
+            border: "1px solid #ded70b",
+            // height: "40%",
+            width: "100%",
+          }}
         ></div>
       </div>
     </ResizablePanel>
