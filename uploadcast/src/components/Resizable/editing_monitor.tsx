@@ -5,7 +5,7 @@ function MonitorScreen() {
   const [width, setWidth] = useState("85%");
   const [height, setHeight] = useState("80%");
 
-  const handleResize = (newSize) => {
+  const handleResize = (newSize: number) => {
     setWidth(`${newSize}%`);
     setHeight(`${(newSize * 9) / 16}`);
   };
@@ -28,7 +28,11 @@ function MonitorScreen() {
       <div
         id="myDiv"
         className="proj_monitor"
-        style={{ width: width, height: height }}
+        style={{
+          width: width,
+          height: height,
+          boxShadow: "0 0 2px rgba(0, 0, 0, 0.5)",
+        }}
       >
         Header
       </div>

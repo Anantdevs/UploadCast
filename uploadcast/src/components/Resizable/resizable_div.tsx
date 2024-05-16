@@ -16,7 +16,7 @@ function TimeLine() {
     >
       <MonitorScreen />
       <ResizableHandle style={{ width: "100%" }} />
-      <BottomTimeline />
+      <BottomTimeline audioUrl="./src/audio/file.wav" />
     </ResizablePanelGroup>
   );
 }

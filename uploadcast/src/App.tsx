@@ -17,11 +17,9 @@ function App() {
   }
   return (
     <div className="stack-container" style={{ width: "100vw" }}>
-      {/* THE BACKGROUND EDITOR SCREEN SECTION */}
       <div style={{ filter: `blur(${blurAmount}px)` }}>
         <EditScreen />
       </div>
-      {/* THE UPLOAD CARD SECTION */}
 
       <div>
         {isVis ? (
