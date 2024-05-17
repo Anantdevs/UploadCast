@@ -7,7 +7,7 @@ import {
 import BottomTimeline from "./time_line";
 import MonitorScreen from "./editing_monitor";
 
-function TimeLine() {
+function TimeLine({ audioFile }) {
   return (
     <ResizablePanelGroup
       direction="vertical"
@@ -16,7 +16,7 @@ function TimeLine() {
     >
       <MonitorScreen />
       <ResizableHandle style={{ width: "100%" }} />
-      <BottomTimeline audioUrl="./src/audio/file.wav" />
+      <BottomTimeline audioUrl={audioFile} />
     </ResizablePanelGroup>
   );
 }

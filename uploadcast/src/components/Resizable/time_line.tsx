@@ -3,9 +3,12 @@ import { Slider } from "../../../@/components/ui/slider";
 import WaveSurfer from "wavesurfer.js";
 import Tools_timeline from "../timeline_tools";
 import { useEffect, useRef } from "react";
+import TimelinePlugin from "wavesurfer.js/dist/plugins/timeline.esm.js";
+
+// import Timeline from "wavesurfer.js/dist/plugins/timeline.esm.js";
 
 const BottomTimeline = ({ audioUrl }) => {
-  const waveformRef = useRef(null);
+  const waveformRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wavesurfer = WaveSurfer.create({
@@ -13,8 +16,18 @@ const BottomTimeline = ({ audioUrl }) => {
       waveColor: "violet",
       progressColor: "purple",
       cursorColor: "navy",
+      minPxPerSec: 100,
+      plugins: [TimelinePlugin.create()],
     });
     wavesurfer.load(audioUrl);
+
+    wavesurfer.on("interaction", () => {
+      wavesurfer.play();
+    });
+
+    wavesurfer.on("finish", () => {
+      wavesurfer.setTime(0);
+    });
     return () => {
       wavesurfer.destroy();
     };
@@ -24,7 +37,7 @@ const BottomTimeline = ({ audioUrl }) => {
     <ResizablePanel
       defaultSize={9}
       maxSize={55}
-      minSize={19}
+      minSize={25}
       className="customResize"
       style={{
         borderTop: "1px solid #007bff",
@@ -58,7 +71,6 @@ const BottomTimeline = ({ audioUrl }) => {
           gridTemplateRows: "18% 45% 45%",
         }}
       >
-        <div style={{}}>Timing</div>
         <div
           style={{
             border: "1px solid #ded70b",
@@ -66,7 +78,7 @@ const BottomTimeline = ({ audioUrl }) => {
             position: "absolute",
           }}
         >
-          <div ref={waveformRef}></div>
+          <div ref={waveformRef} style={{ height: "100%" }}></div>
         </div>
       </div>
     </ResizablePanel>

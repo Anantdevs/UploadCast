@@ -9,9 +9,14 @@ interface CardProps {
   title: string;
   content: string;
   imageUrl: string;
+  callback: FileCallback;
+  closeCard: Function;
 }
-const Card: React.FC<CardProps> = ({ title, content }) => {
-  const onDrop = useCallback(() => {}, []);
+const Card: React.FC<CardProps> = ({ title, content, callback, closeCard }) => {
+  const onDrop = useCallback((acceptedFiles) => {
+    closeCard();
+    callback(acceptedFiles[0]);
+  }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxFiles: 1,

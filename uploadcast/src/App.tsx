@@ -5,11 +5,17 @@ import Card from "./components/card";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
 
 function App() {
   const [blurAmount, setBlurAmount] = useState<number>(5);
   const [isVis, setisVis] = useState<boolean>(true);
+  const [audioFile, setAudioFile] = useState<string | null>(null); // State to store the audio file
+
+  const callThisFromCardComponent = (file: File) => {
+    const audiURL = URL.createObjectURL(file);
+    console.log(`Child passed in ${audiURL}`);
+    setAudioFile(audiURL);
+  };
 
   function changeBlur() {
     setBlurAmount(0);
@@ -18,9 +24,8 @@ function App() {
   return (
     <div className="stack-container" style={{ width: "100vw" }}>
       <div style={{ filter: `blur(${blurAmount}px)` }}>
-        <EditScreen />
+        <EditScreen audioFile={audioFile} />
       </div>
-
       <div>
         {isVis ? (
           <div className="card-upload">
@@ -29,6 +34,8 @@ function App() {
                 title="Audio Editor"
                 content="click to browse, or drag & drop a file here"
                 imageUrl="https://example.com/image.jpg"
+                callback={callThisFromCardComponent}
+                closeCard={changeBlur}
               />
               <FontAwesomeIcon
                 icon={faXmark}
