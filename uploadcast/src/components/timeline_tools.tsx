@@ -1,7 +1,12 @@
-import { faMicrophone, faScissors } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef, useState } from "react";
 
-function Tools_timeline() {
+function Tools_timeline({ icon1, icon2, iconText1, iconText2, callback }) {
+  const [play, setPlay] = useState<boolean>(false);
+  useEffect(() => {
+    console.log("Play on childs Component" + play);
+    callback(play);
+  }, [play]);
   return (
     <div
       style={{
@@ -12,12 +17,12 @@ function Tools_timeline() {
       }}
     >
       <div>
-        <FontAwesomeIcon icon={faScissors} />
-        Split
+        <FontAwesomeIcon icon={icon1} onClick={() => setPlay(true)} />
+        {iconText1}
       </div>
       <div>
-        <FontAwesomeIcon icon={faMicrophone} />
-        voiceover
+        <FontAwesomeIcon icon={icon2} onClick={() => setPlay(false)} />
+        {iconText2}
       </div>
     </div>
   );
