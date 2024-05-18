@@ -1,18 +1,21 @@
 //React imports
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
+import Slider from "rc-slider";
+import "rc-slider/assets/index.css";
 
 //file imports
 import Tools_timeline from "../timeline_tools";
 
 //shadcn imports
 import { ResizablePanel } from "../../../@/components/ui/resizable";
-import { Slider } from "../../../@/components/ui/slider";
+
 //wavesurfer imports
 
 import WaveSurfer from "wavesurfer.js";
 import TimelinePlugin from "wavesurfer.js/dist/plugins/timeline.esm.js";
 import Hover from "wavesurfer.js/dist/plugins/hover.esm.js";
 
+//FontawesomImports
 import {
   faMicrophone,
   faPause,
@@ -21,21 +24,32 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const BottomTimeline = ({ audioUrl }) => {
+  //set state
   const [play, SetPlay] = useState(false);
-
   const [playTime, setPlayTime] = useState(0);
+  const [time, setTime] = useState(0);
+  const [mixpxsec, Setmixpxsec] = useState(100);
 
-  const callThisFromToolsComponent = (value) => {
+  //child to Parent
+  const callThisFromToolsComponent = (
+    value: boolean | ((prevState: boolean) => boolean)
+  ) => {
     SetPlay(value);
   };
 
-  const [time, setTime] = useState(0);
+  // helper dunctions
+  const handleSliderChange = (newValue: SetStateAction<number>) => {
+    Setmixpxsec(newValue);
+  };
+
   const formatTime = (seconds: number) =>
     [seconds / 60, seconds % 60]
       .map((v) => `0${Math.floor(v)}`.slice(-2))
       .join(":");
 
   const waveformRef = useRef<HTMLDivElement>(null);
+
+  //useref
   useEffect(() => {
     const wavesurfer = WaveSurfer.create({
       container: waveformRef.current,
@@ -43,6 +57,7 @@ const BottomTimeline = ({ audioUrl }) => {
       progressColor: "purple",
       cursorColor: "navy",
       minPxPerSec: 100,
+
       plugins: [
         TimelinePlugin.create(),
         Hover.create({
@@ -65,15 +80,23 @@ const BottomTimeline = ({ audioUrl }) => {
     if (play == false) {
       setPlayTime(time);
       wavesurfer.setTime(playTime);
-      // wavesurfer.pause();
     }
     wavesurfer.on("audioprocess", () => {
       setTime(wavesurfer.getCurrentTime());
+      setPlayTime(wavesurfer.getCurrentTime());
+    });
+    wavesurfer.once("decode", () => {
+      wavesurfer.setTime(playTime);
+      wavesurfer.zoom(mixpxsec);
+      setPlayTime(time);
     });
     return () => {
       wavesurfer.destroy();
     };
-  }, [audioUrl, play]);
+  }, [audioUrl, play, mixpxsec]);
+
+  //jsx
+
   return (
     <ResizablePanel
       defaultSize={9}
@@ -96,10 +119,11 @@ const BottomTimeline = ({ audioUrl }) => {
         }}
       >
         <Slider
-          defaultValue={[33]}
-          max={100}
-          step={1}
-          style={{ height: "100%", width: "15%" }}
+          className="slider_tl"
+          style={{ width: "10%", marginLeft: "10px" }}
+          defaultValue={100}
+          aria-label="Default"
+          onChange={handleSliderChange}
         />
         <Tools_timeline
           callback={callThisFromToolsComponent}
