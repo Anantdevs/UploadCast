@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 function Tools_timeline({ icon1, icon2, iconText1, iconText2, callback }) {
   const [play, setPlay] = useState<boolean>(false);
@@ -16,11 +16,11 @@ function Tools_timeline({ icon1, icon2, iconText1, iconText2, callback }) {
         justifyContent: "space-around",
       }}
     >
-      <div>
+      <div style={{ cursor: "pointer" }}>
         <FontAwesomeIcon icon={icon1} onClick={() => setPlay(true)} />
         {iconText1}
       </div>
-      <div>
+      <div style={{ cursor: "pointer" }}>
         <FontAwesomeIcon icon={icon2} onClick={() => setPlay(false)} />
         {iconText2}
       </div>

@@ -23,6 +23,8 @@ import {
 const BottomTimeline = ({ audioUrl }) => {
   const [play, SetPlay] = useState(false);
 
+  const [playTime, setPlayTime] = useState(0);
+
   const callThisFromToolsComponent = (value) => {
     SetPlay(value);
   };
@@ -37,7 +39,7 @@ const BottomTimeline = ({ audioUrl }) => {
   useEffect(() => {
     const wavesurfer = WaveSurfer.create({
       container: waveformRef.current,
-      waveColor: "violet",
+      waveColor: "lightgrey",
       progressColor: "purple",
       cursorColor: "navy",
       minPxPerSec: 100,
@@ -52,13 +54,18 @@ const BottomTimeline = ({ audioUrl }) => {
     });
     wavesurfer.load(audioUrl);
     wavesurfer.on("interaction", () => {
+      SetPlay(true);
       wavesurfer.play();
+      console.log(play);
     });
     if (play == true) {
+      wavesurfer.setTime(playTime);
       wavesurfer.play();
     }
     if (play == false) {
-      wavesurfer.pause();
+      setPlayTime(time);
+      wavesurfer.setTime(playTime);
+      // wavesurfer.pause();
     }
     wavesurfer.on("audioprocess", () => {
       setTime(wavesurfer.getCurrentTime());
