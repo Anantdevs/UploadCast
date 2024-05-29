@@ -17,11 +17,25 @@ function Tools_timeline({ icon1, icon2, iconText1, iconText2, callback }) {
       }}
     >
       <div style={{ cursor: "pointer" }}>
-        <FontAwesomeIcon icon={icon1} onClick={() => setPlay(true)} />
+        <FontAwesomeIcon
+          icon={icon1}
+          onClick={() => {
+            if (iconText1 == "  Play") {
+              setPlay(true);
+            }
+          }}
+        />
         {iconText1}
       </div>
       <div style={{ cursor: "pointer" }}>
-        <FontAwesomeIcon icon={icon2} onClick={() => setPlay(false)} />
+        <FontAwesomeIcon
+          icon={icon2}
+          onClick={() => {
+            if (iconText2 == "  Pause") {
+              setPlay(false);
+            }
+          }}
+        />
         {iconText2}
       </div>
     </div>

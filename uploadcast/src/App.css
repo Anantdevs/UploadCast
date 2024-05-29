@@ -109,7 +109,6 @@
 }
 
 .proj_monitor {
-  /* position: relative; */
   background-color: black;
 }
 
@@ -119,6 +118,7 @@
   right: 5vh;
   cursor: pointer;
 }
+
 .logo {
   height: 6em;
   padding: 1.5em;

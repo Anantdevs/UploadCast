@@ -1,21 +1,12 @@
-//React imports
-import { SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-
-//file imports
 import Tools_timeline from "../timeline_tools";
-
-//shadcn imports
 import { ResizablePanel } from "../../../@/components/ui/resizable";
-
-//wavesurfer imports
-
 import WaveSurfer from "wavesurfer.js";
 import TimelinePlugin from "wavesurfer.js/dist/plugins/timeline.esm.js";
 import Hover from "wavesurfer.js/dist/plugins/hover.esm.js";
-
-//FontawesomImports
+import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.esm.js";
 import {
   faMicrophone,
   faPause,
@@ -24,82 +15,87 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const BottomTimeline = ({ audioUrl }) => {
-  //set state
-  const [play, SetPlay] = useState(false);
+  const [play, setPlay] = useState(false);
   const [playTime, setPlayTime] = useState(0);
   const [time, setTime] = useState(0);
-  const [mixpxsec, Setmixpxsec] = useState(100);
+  const [mixpxsec, setMixpxsec] = useState(100);
+  const [points, setPoints] = useState([5, 10]);
+  const waveformRef = useRef(null);
+  const wavesurferRef = useRef(null);
 
-  //child to Parent
-  const callThisFromToolsComponent = (
-    value: boolean | ((prevState: boolean) => boolean)
-  ) => {
-    SetPlay(value);
+  const handleSliderChange = (newValue) => {
+    setMixpxsec(newValue);
+    if (wavesurferRef.current) {
+      wavesurferRef.current.zoom(newValue);
+    }
   };
 
-  // helper dunctions
-  const handleSliderChange = (newValue: SetStateAction<number>) => {
-    Setmixpxsec(newValue);
-  };
-
-  const formatTime = (seconds: number) =>
+  const formatTime = (seconds) =>
     [seconds / 60, seconds % 60]
       .map((v) => `0${Math.floor(v)}`.slice(-2))
       .join(":");
 
-  const waveformRef = useRef<HTMLDivElement>(null);
-
-  //useref
   useEffect(() => {
-    const wavesurfer = WaveSurfer.create({
-      container: waveformRef.current,
-      waveColor: "lightgrey",
-      progressColor: "purple",
-      cursorColor: "navy",
-      minPxPerSec: 100,
+    if (!wavesurferRef.current) {
+      wavesurferRef.current = WaveSurfer.create({
+        container: waveformRef.current,
+        waveColor: "lightgrey",
+        progressColor: "purple",
+        cursorColor: "navy",
+        minPxPerSec: 100,
+        plugins: [
+          TimelinePlugin.create(),
+          Hover.create({
+            lineColor: "#ff0000",
+            lineWidth: 2,
+            labelSize: "11px",
+          }),
+        ],
+      });
 
-      plugins: [
-        TimelinePlugin.create(),
-        Hover.create({
-          lineColor: "#ff0000",
-          lineWidth: 2,
-          labelSize: "11px",
-        }),
-      ],
-    });
-    wavesurfer.load(audioUrl);
-    wavesurfer.on("interaction", () => {
-      SetPlay(true);
-      wavesurfer.play();
-      console.log(play);
-    });
-    if (play == true) {
-      wavesurfer.setTime(playTime);
-      wavesurfer.play();
+      const wsRegions = wavesurferRef.current.registerPlugin(
+        RegionsPlugin.create()
+      );
+      wavesurferRef.current.load(audioUrl);
+
+      wavesurferRef.current.on("audioprocess", () => {
+        setTime(wavesurferRef.current.getCurrentTime());
+        setPlayTime(wavesurferRef.current.getCurrentTime());
+      });
+
+      wavesurferRef.current.once("decode", () => {
+        wsRegions.addRegion({
+          start: points[0],
+          end: points[1],
+          color: "rgba(255, 0, 0, 0.1)",
+          resize: true,
+        });
+      });
+    } else {
+      wavesurferRef.current.load(audioUrl);
     }
-    if (play == false) {
-      setPlayTime(time);
-      wavesurfer.setTime(playTime);
-    }
-    wavesurfer.on("audioprocess", () => {
-      setTime(wavesurfer.getCurrentTime());
-      setPlayTime(wavesurfer.getCurrentTime());
-    });
-    wavesurfer.once("decode", () => {
-      wavesurfer.setTime(playTime);
-      wavesurfer.zoom(mixpxsec);
-      setPlayTime(time);
-    });
+
     return () => {
-      wavesurfer.destroy();
+      if (wavesurferRef.current) {
+        wavesurferRef.current.destroy();
+        wavesurferRef.current = null;
+      }
     };
-  }, [audioUrl, play, mixpxsec]);
+  }, [audioUrl, points]);
 
-  //jsx
+  useEffect(() => {
+    if (wavesurferRef.current) {
+      if (play) {
+        wavesurferRef.current.play();
+      } else {
+        wavesurferRef.current.pause();
+      }
+    }
+  }, [play]);
 
   return (
     <ResizablePanel
-      defaultSize={9}
+      defaultSize={19}
       maxSize={55}
       minSize={25}
       className="customResize"
@@ -126,19 +122,22 @@ const BottomTimeline = ({ audioUrl }) => {
           onChange={handleSliderChange}
         />
         <Tools_timeline
-          callback={callThisFromToolsComponent}
+          callback={setPlay}
           icon1={faPlay}
           icon2={faPause}
           iconText1={"  Play"}
           iconText2={"  Pause"}
         />
         <Tools_timeline
-          callback={callThisFromToolsComponent}
+          callback={setPlay}
           icon1={faMicrophone}
           icon2={faScissors}
           iconText1={"  VoiceOver"}
           iconText2={"  Crop"}
         />
+      </div>
+      <div>
+        <p>Current time: {formatTime(time)}</p>
       </div>
       <div
         style={{
@@ -149,9 +148,6 @@ const BottomTimeline = ({ audioUrl }) => {
           gridTemplateRows: "18% 45% 45%",
         }}
       >
-        <div>
-          <p>Current time: {formatTime(time)}</p>
-        </div>
         <div
           style={{
             border: "1px solid #ded70b",
@@ -165,4 +161,5 @@ const BottomTimeline = ({ audioUrl }) => {
     </ResizablePanel>
   );
 };
+
 export default BottomTimeline;
