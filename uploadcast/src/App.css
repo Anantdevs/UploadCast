@@ -154,3 +154,14 @@
 .read-the-docs {
   color: #888;
 }
+
+.tools_timeline .tools_bg {
+  opacity: 0;
+  /* background-color: ; */
+}
+.tools_timeline:hover .tools_bg {
+  background-color: #e8e7e7;
+  transition: opacity 0.1s ease-in;
+  opacity: 1;
+  cursor: pointer;
+}

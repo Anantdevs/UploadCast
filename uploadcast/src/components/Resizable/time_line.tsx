@@ -13,9 +13,11 @@ import {
   faPlay,
   faScissors,
 } from "@fortawesome/free-solid-svg-icons";
+import { Play } from "lucide-react";
 
 const BottomTimeline = ({ audioUrl }) => {
   const [play, setPlay] = useState(false);
+  const [icon, setIcon] = useState(faPlay);
   const [playTime, setPlayTime] = useState(0);
   const [time, setTime] = useState(0);
   const [mixpxsec, setMixpxsec] = useState(100);
@@ -95,9 +97,9 @@ const BottomTimeline = ({ audioUrl }) => {
 
   return (
     <ResizablePanel
-      defaultSize={19}
+      defaultSize={20.2} //maxsize-minsize
       maxSize={55}
-      minSize={25}
+      minSize={34.8}
       className="customResize"
       style={{
         borderTop: "1px solid #007bff",
@@ -112,6 +114,7 @@ const BottomTimeline = ({ audioUrl }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          paddingTop: "15px",
         }}
       >
         <Slider
@@ -121,21 +124,102 @@ const BottomTimeline = ({ audioUrl }) => {
           aria-label="Default"
           onChange={handleSliderChange}
         />
-        <Tools_timeline
-          callback={setPlay}
-          icon1={faPlay}
-          icon2={faPause}
-          iconText1={"  Play"}
-          iconText2={"  Pause"}
-        />
-        <Tools_timeline
-          callback={setPlay}
-          icon1={faMicrophone}
-          icon2={faScissors}
-          iconText1={"  VoiceOver"}
-          iconText2={"  Crop"}
-        />
+        {/*//// //Tools section///////// */}
+
+        {/* ////////// ICON 1 AND THE BACKGROUND STYLING START////////// */}
+
+        <div
+          className="tools_timeline"
+          style={{
+            position: "relative",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            className="tools_bg"
+            style={{
+              position: "absolute",
+              top: -32,
+              left: -40,
+              borderRadius: "50%",
+              height: "50px",
+              width: "50px",
+            }}
+          ></div>
+          <div style={{ position: "absolute", top: -20, left: -20 }}>
+            <Tools_timeline icon1={faMicrophone} />
+          </div>
+        </div>
+
+        {/* ////////// ICON 2 AND THE BACKGROUND STYLING START////////// */}
+        <div
+          className="tools_timeline"
+          style={{
+            position: "relative",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            className="tools_bg"
+            style={{
+              position: "absolute",
+              top: -32,
+              left: -40,
+              borderRadius: "50%",
+              height: "50px",
+              width: "50px",
+            }}
+          ></div>
+          <div
+            style={{ position: "absolute", top: -20, left: -20 }}
+            onClick={() => {
+              setPlay(!play);
+              if (icon == faPlay) {
+                setIcon(faPause);
+              } else {
+                setIcon(faPlay);
+              }
+            }}
+          >
+            <Tools_timeline icon1={icon} />
+          </div>
+        </div>
+
+        {/* ////////// ICON 3 AND THE BACKGROUND STYLING START////////// */}
+
+        <div
+          className="tools_timeline"
+          style={{
+            position: "relative",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            className="tools_bg"
+            style={{
+              position: "absolute",
+              top: -32,
+              left: -40,
+              borderRadius: "50%",
+              height: "50px",
+              width: "50px",
+            }}
+          ></div>
+          <div style={{ position: "absolute", top: -20, left: -22 }}>
+            <Tools_timeline icon1={faScissors} />
+          </div>
+        </div>
+
+        {/* ////////// ICON 3 AND THE BACKGROUND STYLING CLOSE////////// */}
+
+        <span></span>
       </div>
+
+      {/* //// */}
+
       <div>
         <p>Current time: {formatTime(time)}</p>
       </div>
