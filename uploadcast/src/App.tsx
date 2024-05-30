@@ -16,6 +16,11 @@ function App() {
     console.log(`Child passed in ${audioURL}`);
     setAudioFile(audioURL);
   };
+  const callThisFromEditScreen = (file: File) => {
+    const audioURL = URL.createObjectURL(file);
+    console.log(`Child passed in ${audioURL}`);
+    setAudioFile(audioURL);
+  };
 
   const changeBlur = () => {
     setBlurAmount(0);
@@ -25,7 +30,7 @@ function App() {
   return (
     <div className="stack-container" style={{ width: "100vw" }}>
       <div style={{ filter: `blur(${blurAmount}px)` }}>
-        <EditScreen audioFile={audioFile} />
+        <EditScreen callback={callThisFromEditScreen} audioFile={audioFile} />
       </div>
       <div>
         {isVis && (

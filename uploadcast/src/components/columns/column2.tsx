@@ -5,8 +5,10 @@ import { ScrollArea } from "../../../@/components/ui/scroll-area";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
-function Column2() {
-  const onDrop = useCallback(() => {}, []);
+const Column2 = ({ callback }) => {
+  const onDrop = useCallback((acceptedFiles) => {
+    callback(acceptedFiles[0]);
+  }, []);
   const { getRootProps } = useDropzone({
     onDrop,
     maxFiles: 1,
@@ -41,5 +43,5 @@ function Column2() {
       </div>
     </ScrollArea>
   );
-}
+};
 export default Column2;
