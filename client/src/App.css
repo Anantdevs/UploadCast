@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.autoShow {
+  animation: autoShowAnimation both;
+  animation-timeline: view(30% auto);
+}
+
+@keyframes autoShowAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(200px) scale(0.3);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.bg-shadow-scroll {
+  animation: bgShadowAnimation cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  animation-timeline: view(40% -12%);
+}
+@keyframes bgShadowAnimation {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 200px 200px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.btn-upd {
+  padding: 15px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.stack-container {
+  position: relative;
+}
+.customResize {
+  width: 94.4%;
+  left: 5.6%;
+}
+.card-upload {
+  position: absolute;
+  top: 25vh;
+  left: 45vh;
+  width: 100vh;
+}
+.card {
+  border: 0.1vh solid #e6e5e5;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 3vh;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+  padding: 4vh;
+  height: 40vh;
+}
+.card_2col {
+  border: 1.5px dashed #dddada;
+  min-height: 8dvw;
+  row-gap: 0.5vw;
+  border-radius: 1vh;
+}
+.card_2col:hover {
+  border: 1.5px dashed #007bff;
+}
+.card-content {
+  border: 1.5px dashed #dddada;
+  background: #fcfbfbb0;
+  overflow: hidden;
+  border-radius: 1vh;
+  z-index: 100;
+  height: 27vh;
+  align-items: center;
+}
+
+.card-content:hover {
+  transition: background-color 0.1s ease;
+  background-color: #dbdeff;
+  border: 1.5px dashed #007bff;
+}
+
+.Edit_column {
+  display: grid;
+  grid-template-columns: 5.6% 27% 67.4%;
+  grid-template-rows: 100vh;
+}
+.icons-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 1vh;
+  padding-bottom: 1.5vh;
+  align-items: center;
+}
+.column1 {
+  background-color: #f7f7f8;
+  border: 0.5px solid #d7d6d6;
+  height: 100vh;
+}
+
+.column2 {
+  background-color: #f7f7f8;
+  border: 0.5px solid #d7d6d6;
+  z-index: 50;
+}
+
+.column3 {
+  background-color: #f7f8f8;
+  border: 0.5px solid #d7d6d6;
+  position: relative;
+}
+
+.iconStyle {
+  font-size: 22px;
+  position: relative;
+  z-index: 1;
+}
+.img_wrapper {
+  margin: 25px 70px;
+}
+.img_wrapper img {
+  width: 100%;
+  height: 200px;
+}
+
+.background-circ {
+  position: absolute;
+  border-radius: 50%;
+  top: -25%;
+  right: -55%;
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  z-index: -1;
+}
+
+.iconStyle:hover .background-circ {
+  background-color: #e8e7e7;
+  transition: opacity 0.1s ease-in;
+  opacity: 1;
+}
+
+.navbar {
+  animation: navbarBorderAnimation linear forwards;
+  animation-timeline: view();
+  animation-range-start: 200vw;
+  animation-range-end: 205vw;
+  border-color: #000000;
+}
+@keyframes navbarBorderAnimation {
+  100% {
+    border-color: #ffffff;
+  }
+}
+
+::selection {
+  background: #f5ff7c;
+  color: black;
+}
+
+.svg_fill {
+  animation: svgFillAnimation linear forwards;
+  animation-timeline: view();
+  animation-range-start: 200vw;
+  animation-range-end: 205vw;
+
+  fill: #333;
+}
+@keyframes svgFillAnimation {
+  100% {
+    fill: #ffffff;
+  }
+}
+
+.upd_card_close {
+  position: absolute;
+  top: 5vh;
+  right: 5vh;
+  cursor: pointer;
+}
+
+.tools_timeline .tools_bg,
+.tools_timeline.spacebar-hover .tools_bg {
+  opacity: 0;
+}
+.tools_timeline:hover .tools_bg,
+.tools_timeline.spacebar-hover .tools_bg {
+  background-color: #e8e7e7;
+  transition: opacity 0.1s ease-in;
+  opacity: 1;
+  cursor: pointer;
+}
