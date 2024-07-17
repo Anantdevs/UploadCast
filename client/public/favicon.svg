@@ -1,0 +1,23 @@
+ <svg
+            width="50"
+            height="50"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="70 0 30 50"
+            className="svg_fill"
+          >
+            <style>
+              {`.logo-text {
+          font-family: Arial, sans-serif;
+          font-size: 55px;
+          // fill: #333;
+        }
+        .mic-icon {
+          // fill: #333;
+        }`}
+            </style>
+            <path
+              className="mic-icon"
+              d="M80,50c-10.5,0-19-8.5-19-19V9c0-5,4-9,9-9s9,4,9,9v22C99,41.5,90.5,50,80,50z M80,6c-3.9,0-7,3.1-7,7v22 c0,2.8,1.1,5.3,2.9,7.1C75.7,43.6,76,43.8,76,44v-28C76,9.5,76.5,9,77,9s1,0.5,1,1v28c0,0.2,0.3,0.4,0.5,0.1C85.9,40.3,87,37.8,87,35V13 C87,9.1,83.9,6,80,6z"
+            />
+
+          </svg>
