@@ -5,8 +5,11 @@ import { ScrollArea } from "../../../@/components/ui/scroll-area";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
-const Column2 = ({ callback }) => {
-  const onDrop = useCallback((acceptedFiles) => {
+interface Column2Props {
+  callback: (file: File) => void; // Define type for callback prop
+}
+const Column2: React.FC<Column2Props> = ({ callback }) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     callback(acceptedFiles[0]);
   }, []);
   const { getRootProps } = useDropzone({

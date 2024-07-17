@@ -1,26 +1,26 @@
-import React, { useRef, useState } from "react";
+import { useState } from "react";
 import Cursor from "./nav_comp/cursor";
 import Litem from "./nav_comp/li_item";
-import { motion, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons";
-function Navbar({ reach }) {
+function Navbar() {
   const [position, setPosition] = useState({
     left: 0,
     width: 0,
     opacity: 0,
   });
   // const ref2 = useRef<HTMLLIElement>(null);
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState(-1);
   const [opacityhover, setOpacityhover] = useState(0);
-  const handleMouseEnter = (index) => {
+  const handleMouseEnter = (index: number) => {
     setHoveredIndex(index);
     setOpacityhover(100);
   };
 
   const handleMouseLeave = () => {
-    setHoveredIndex(null);
+    setHoveredIndex(-1);
     setOpacityhover(0);
   };
   return (

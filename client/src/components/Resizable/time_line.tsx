@@ -7,7 +7,6 @@ import WaveSurfer from "wavesurfer.js";
 import TimelinePlugin from "wavesurfer.js/dist/plugins/timeline.esm.js";
 import Hover from "wavesurfer.js/dist/plugins/hover.esm.js";
 import RegionsPlugin from "wavesurfer.js/dist/plugins/regions.esm.js";
-import { cutAudio } from "../../functions/audioEditing";
 
 import {
   faMicrophone,
@@ -17,13 +16,17 @@ import {
   faAdd,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Dropzone, { useDropzone } from "react-dropzone";
+import { useDropzone } from "react-dropzone";
 
-const BottomTimeline = ({ audioUrl }) => {
-  const onDrop = useCallback((acceptedFile) => {
-    newAudioUrl(URL.createObjectURL(acceptedFile));
+const BottomTimeline = ({ audioUrl }: { audioUrl: string }) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      URL.createObjectURL(acceptedFiles[0]);
+    } else {
+      console.log("No files accepted.");
+    }
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps } = useDropzone({
     onDrop,
     maxFiles: 1,
     accept: {
@@ -42,45 +45,59 @@ const BottomTimeline = ({ audioUrl }) => {
 
   // state variables
 
-  const [play, setPlay] = useState(false);
+  const [play, setPlay] = useState<boolean>(false);
   const [icon, setIcon] = useState(faPlay);
-  const [playTime, setPlayTime] = useState(0);
   const [time, setTime] = useState(0);
-  const [mixpxsec, setMixpxsec] = useState(100);
-  const [points, setPoints] = useState([5, 10]);
+  const points = [5, 10];
   const [spacebarPressed, setSpacebarPressed] = useState(false);
-  const [AudioURL, newAudioUrl] = useState(audioUrl);
 
   // Ref variables
 
   const waveformRef = useRef(null);
-  const wavesurferRef = useRef(null);
+  const wavesurferRef = useRef<WaveSurfer | null>(null); // Use WaveSurfer type or null
 
   //functions
 
-  const handleCutAudio = () => {
-    if (wavesurferRef.current) {
-      cutAudio(wavesurferRef.current); // Call the cutAudio function
-    }
-  };
-
-  const handleSliderChange = (newValue) => {
-    setMixpxsec(newValue);
-    if (wavesurferRef.current) {
+  const handleSliderChange = (newValue: number | number[]) => {
+    // if (typeof newValue === "number") {
+    //   setMixpxsec(newValue);
+    // }
+    if (wavesurferRef.current && typeof newValue === "number") {
       wavesurferRef.current.zoom(newValue);
     }
   };
 
-  const formatTime = (seconds) =>
+  const formatTime = (seconds: number) =>
     [seconds / 60, seconds % 60]
       .map((v) => `0${Math.floor(v)}`.slice(-2))
       .join(":");
 
+  const playPauseButton = () => {
+    setPlay(!play);
+    if (icon == faPlay) {
+      setIcon(faPause);
+    } else {
+      setIcon(faPlay);
+    }
+  };
+
+  //adding hover on key down
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    const divElement = document.getElementById("play_pause");
+
+    if (event.keyCode === 32) {
+      setSpacebarPressed(true);
+      setPlay((prevPlaying) => !prevPlaying);
+      setTimeout(() => setSpacebarPressed(false), 600);
+      divElement?.click();
+    }
+  };
   //USEFFECT 1
   useEffect(() => {
     if (!wavesurferRef.current) {
       wavesurferRef.current = WaveSurfer.create({
-        container: waveformRef.current,
+        container: waveformRef.current!,
         waveColor: "lightgrey",
         progressColor: "purple",
         cursorColor: "navy",
@@ -95,18 +112,18 @@ const BottomTimeline = ({ audioUrl }) => {
         ],
       });
 
-      const wsRegions = wavesurferRef.current.registerPlugin(
+      const wsRegions = wavesurferRef.current?.registerPlugin(
         RegionsPlugin.create()
       );
 
-      wavesurferRef.current.load(audioUrl);
+      wavesurferRef.current?.load(audioUrl);
 
-      wavesurferRef.current.on("audioprocess", () => {
-        setTime(wavesurferRef.current.getCurrentTime());
-        setPlayTime(wavesurferRef.current.getCurrentTime());
+      wavesurferRef.current?.on("audioprocess", () => {
+        setTime(wavesurferRef.current!.getCurrentTime());
+        // setPlayTime(wavesurferRef.current!.getCurrentTime());
       });
 
-      wavesurferRef.current.once("decode", () => {
+      wavesurferRef.current?.once("decode", () => {
         wsRegions.addRegion({
           start: points[0],
           end: points[1],
@@ -124,31 +141,9 @@ const BottomTimeline = ({ audioUrl }) => {
         wavesurferRef.current = null;
       }
     };
-  }, [audioUrl, points]);
+  }, [audioUrl]);
 
   //USEFFECT 2
-
-  const playPauseButton = () => {
-    setPlay(!play);
-    if (icon == faPlay) {
-      setIcon(faPause);
-    } else {
-      setIcon(faPlay);
-    }
-  };
-
-  //adding hover on key down
-
-  const handleKeyPress = (event) => {
-    const divElement = document.getElementById("play_pause");
-
-    if (event.keyCode === 32) {
-      setSpacebarPressed(true);
-      setPlay((prevPlaying) => !prevPlaying);
-      setTimeout(() => setSpacebarPressed(false), 600);
-      divElement?.click();
-    }
-  };
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyPress);
@@ -258,7 +253,6 @@ const BottomTimeline = ({ audioUrl }) => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onClick={handleCutAudio}
         >
           <div
             className="tools_bg"

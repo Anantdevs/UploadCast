@@ -1,9 +1,13 @@
-import React from "react";
 import Column2 from "../components/columns/column2";
 import Column1 from "../components/columns/column1";
 import Column3 from "../components/columns/column3";
 import TimeLine from "../components/Resizable/resizable_div";
-function EditScreen({ audioFile, callback }) {
+
+interface Props {
+  audioFile: string; // Assuming audioFile is of type File
+  callback: (file: File) => void; // Assuming callback is a function that accepts a File and returns void
+}
+function EditScreen({ audioFile, callback }: Props) {
   const callThisFromColumnComponent = (file: File) => {
     callback(file);
   };

@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
 function About1() {
   const [openIndex, setOpenIndex] = useState(0);
-  const toggleItem = (index) => {
+  const toggleItem = (index: SetStateAction<number>) => {
     setOpenIndex(index);
   };
   return (

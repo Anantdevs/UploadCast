@@ -1,7 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { useEffect, useState } from "react";
+import { IconProp } from "@fortawesome/fontawesome-svg-core"; // Import IconProp type if using Font Awesome
 
-function Tools_timeline({ icon1 }) {
+interface Props {
+  icon1: IconProp; // Assuming icon1 is an IconProp type from FontAwesome
+}
+function Tools_timeline({ icon1 }: Props) {
   return (
     <div
       style={{

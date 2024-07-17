@@ -10,10 +10,10 @@ interface CardProps {
   content: string;
   imageUrl: string;
   callback: FileCallback;
-  closeCard: Function;
+  closeCard: () => void;
 }
 const Card: React.FC<CardProps> = ({ title, content, callback, closeCard }) => {
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     closeCard();
     callback(acceptedFiles[0]);
   }, []);

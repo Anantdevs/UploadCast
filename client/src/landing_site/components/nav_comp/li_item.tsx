@@ -1,6 +1,16 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 
-function Litem({ index, item, setPosition }) {
+interface Props {
+  index: number;
+  item: string;
+  setPosition: (position: {
+    width: number;
+    opacity: number;
+    left: number;
+  }) => void;
+}
+
+function Litem({ index, item, setPosition }: Props) {
   const ref = useRef<HTMLLIElement>(null);
   return (
     <li

@@ -1,8 +1,19 @@
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Card from "./card";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-const CARD_COMP = ({ isVis, callThisFromCardComponent, changeBlur }) => {
+interface CardCompProps {
+  isVis: boolean;
+  callThisFromCardComponent: (file: File) => void; // Example type for callback function
+  changeBlur: () => void; // Example type for changeBlur function
+}
+
+const CARD_COMP: React.FC<CardCompProps> = ({
+  isVis,
+  callThisFromCardComponent,
+  changeBlur,
+}) => {
   return (
     <div>
       <div className={`card-upload ${isVis ? "" : "upd_card_close"}`}>
@@ -24,4 +35,5 @@ const CARD_COMP = ({ isVis, callThisFromCardComponent, changeBlur }) => {
     </div>
   );
 };
+
 export default CARD_COMP;

@@ -1,19 +1,15 @@
 import { ResizablePanel } from "../../../@/components/ui/resizable";
-import React, { useState } from "react";
+import { useState } from "react";
 
-function MonitorScreen({ mediaUrl }) {
+function MonitorScreen() {
   // Destructure mediaUrl from props
   const [width, setWidth] = useState("85%");
   const [height, setHeight] = useState("80%");
 
-  const handleResize = (newSize) => {
+  const handleResize = (newSize: number) => {
     setWidth(`${newSize}%`);
     setHeight(`${(newSize * 9) / 16}`);
   };
-
-  // Check if mediaUrl is provided and it's a video
-  // const isVideo =
-  //   mediaUrl && mediaUrl.type && mediaUrl.type.startsWith("video/");
 
   return (
     <ResizablePanel

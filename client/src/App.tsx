@@ -8,7 +8,7 @@ import LandingPage from "./landing_site/landing_page";
 function App() {
   const [blurAmount, setBlurAmount] = useState<number>(5);
   const [isVis, setIsVis] = useState<boolean>(true);
-  const [audioFile, setAudioFile] = useState<string | null>(null);
+  const [audioFile, setAudioFile] = useState<string>("");
 
   const callThisFromCardComponent = (file: File) => {
     const audioURL = URL.createObjectURL(file);

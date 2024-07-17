@@ -1,6 +1,9 @@
-import React from "react";
-import { motion } from "framer-motion";
-function Cursor({ position }) {
+import { motion, AnimationProps } from "framer-motion";
+
+interface Props {
+  position: AnimationProps["animate"];
+}
+function Cursor({ position }: Props) {
   return (
     <motion.li
       animate={position}

@@ -7,7 +7,6 @@ import {
   faQuestion,
 } from "@fortawesome/free-solid-svg-icons";
 import Icon from "../icon-options";
-import React from "react";
 
 function Column1() {
   return (
