@@ -64,9 +64,9 @@ function Navbar() {
         }}
       >
         {[
-          "company",
-          "content",
-          "cpg house",
+          "Home",
+          "products",
+          "About",
           "pricing",
           "login",
           "book a demo",
