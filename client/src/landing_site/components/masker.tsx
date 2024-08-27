@@ -30,7 +30,7 @@ function Masker() {
       }}
     >
       <div className="textstructure mt-40 px-20 ">
-        {["THE EASIEST WAY", "TO AUTOMATE", "REORDERING"].map((item, index) => (
+        {["THE EASIEST WAY", "TO Edit", "audio"].map((item, index) => (
           <div className="masker">
             {index === 1 ? (
               <div className="inline-block ">
@@ -139,8 +139,8 @@ function Masker() {
       </div>
       <div className="pl-48">
         <div className=" mt-20 text-xl w-96 mb-96">
-          Repeat creates better email and SMS flows by analyzing your customers’
-          reorder behavior and automatically turns that insight into action.
+          Learncast creates and edit better audio and videos
+          It edit your audio faster than the API call .
         </div>
       </div>
     </div>
